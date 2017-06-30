@@ -9,6 +9,7 @@ typealias Encoder<T> = (T) -> Value
 object Encoders {
     val string: (String) -> Value = ::JsonPrimitive
     val int: (Int) -> Value = ::JsonPrimitive
+    val long: (Long) -> Value = ::JsonPrimitive
     val float: (Float) -> Value = ::JsonPrimitive
     val bool: (Boolean) -> Value = ::JsonPrimitive
 

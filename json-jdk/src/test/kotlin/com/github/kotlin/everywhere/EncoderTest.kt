@@ -4,6 +4,7 @@ import com.github.kotlin.everywhere.json.encode.Encoders.array
 import com.github.kotlin.everywhere.json.encode.Encoders.bool
 import com.github.kotlin.everywhere.json.encode.Encoders.float
 import com.github.kotlin.everywhere.json.encode.Encoders.int
+import com.github.kotlin.everywhere.json.encode.Encoders.long
 import com.github.kotlin.everywhere.json.encode.Encoders.object_
 import com.github.kotlin.everywhere.json.encode.Encoders.string
 import com.github.kotlin.everywhere.json.encode.encode
@@ -19,6 +20,11 @@ class EncoderTest {
     @Test
     fun testInt() {
         assertEquals("42", encode(int(42)))
+    }
+
+    @Test
+    fun testLong() {
+        assertEquals("42", encode(long(42)))
     }
 
     @Test
