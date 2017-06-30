@@ -13,7 +13,6 @@ object Encoders {
     val float: (Float) -> Value = ::JsonPrimitive
     val bool: (Boolean) -> Value = ::JsonPrimitive
 
-
     fun object_(vararg fields: Pair<String, Value>): Value {
         return fields.fold(JsonObject()) { obj, (name, value) -> obj.add(name, value); obj }
     }
