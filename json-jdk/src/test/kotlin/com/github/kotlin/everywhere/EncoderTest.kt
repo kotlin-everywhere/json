@@ -9,6 +9,7 @@ import com.github.kotlin.everywhere.json.encode.Encoders.nul
 import com.github.kotlin.everywhere.json.encode.Encoders.nullable
 import com.github.kotlin.everywhere.json.encode.Encoders.object_
 import com.github.kotlin.everywhere.json.encode.Encoders.string
+import com.github.kotlin.everywhere.json.encode.Encoders.unit
 import com.github.kotlin.everywhere.json.encode.encode
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -42,6 +43,11 @@ class EncoderTest {
     @Test
     fun testNull() {
         assertEquals("null", encode(nul))
+    }
+
+    @Test
+    fun testUnit() {
+        assertEquals("\"Unit\"", encode(unit))
     }
 
     @Test
