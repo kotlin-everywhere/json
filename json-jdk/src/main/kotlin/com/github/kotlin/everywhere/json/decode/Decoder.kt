@@ -30,6 +30,14 @@ object Decoders {
         }
     }
 
+    val long: Decoder<Long> = {
+        if (it.isJsonPrimitive && it.asJsonPrimitive.isNumber && "$it".isLong) {
+            Ok(it.asLong)
+        } else {
+            Err("Expecting a Long but instead got: $it")
+        }
+    }
+
     val float: Decoder<Float> = {
         if (it.isJsonPrimitive && it.asJsonPrimitive.isNumber && !"$it".isInt && "$it".isFloat) {
             Ok(it.asFloat)
@@ -90,6 +98,16 @@ private val String.isInt: Boolean
     get() {
         try {
             Integer.parseInt(this)
+            return true
+        } catch (e: NumberFormatException) {
+            return false
+        }
+    }
+
+private val String.isLong: Boolean
+    get() {
+        try {
+            java.lang.Long.parseLong(this)
             return true
         } catch (e: NumberFormatException) {
             return false

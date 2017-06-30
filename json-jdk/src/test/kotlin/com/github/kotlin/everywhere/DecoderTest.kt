@@ -4,6 +4,7 @@ import com.github.kotlin.everywhere.json.decode.Decoders.boolean
 import com.github.kotlin.everywhere.json.decode.Decoders.field
 import com.github.kotlin.everywhere.json.decode.Decoders.float
 import com.github.kotlin.everywhere.json.decode.Decoders.int
+import com.github.kotlin.everywhere.json.decode.Decoders.long
 import com.github.kotlin.everywhere.json.decode.Decoders.nul
 import com.github.kotlin.everywhere.json.decode.Decoders.nullable
 import com.github.kotlin.everywhere.json.decode.Decoders.string
@@ -43,6 +44,16 @@ class DecoderTest {
         assertEquals(Err.of("Expecting a Int but instead got: 3.14"), decodeString(int, "3.14"))
         assertEquals(Err.of("Expecting a Int but instead got: \"hello\""), decodeString(int, "\"hello\""))
         assertEquals(Err.of("Expecting a Int but instead got: {\"hello\":42}"), decodeString(int, "{ \"hello\": 42 }"))
+    }
+
+    @Test
+    fun testLong() {
+        assertEquals(Err.of("Expecting a Long but instead got: null"), decodeString(long, "null"))
+        assertEquals(Err.of("Expecting a Long but instead got: true"), decodeString(long, "true"))
+        assertEquals(Ok.of(42L), decodeString(long, "42"))
+        assertEquals(Err.of("Expecting a Long but instead got: 3.14"), decodeString(long, "3.14"))
+        assertEquals(Err.of("Expecting a Long but instead got: \"hello\""), decodeString(long, "\"hello\""))
+        assertEquals(Err.of("Expecting a Long but instead got: {\"hello\":42}"), decodeString(long, "{ \"hello\": 42 }"))
     }
 
     @Test
