@@ -47,7 +47,7 @@ class EncoderTest {
 
     @Test
     fun testUnit() {
-        assertEquals("\"Unit\"", encode(unit))
+        assertEquals("\"Unit\"", encode(unit(Unit)))
     }
 
     @Test
