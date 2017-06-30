@@ -7,18 +7,26 @@ typealias Value = JsonElement
 typealias Encoder<T> = (T) -> Value
 
 object Encoders {
-    val string: (String) -> Value = ::JsonPrimitive
-    val int: (Int) -> Value = ::JsonPrimitive
-    val long: (Long) -> Value = ::JsonPrimitive
-    val float: (Float) -> Value = ::JsonPrimitive
-    val bool: (Boolean) -> Value = ::JsonPrimitive
+    val string: Encoder<String> = ::JsonPrimitive
+    val int: Encoder<Int> = ::JsonPrimitive
+    val long: Encoder<Long> = ::JsonPrimitive
+    val float: Encoder<Float> = ::JsonPrimitive
+    val bool: Encoder<Boolean> = ::JsonPrimitive
+    val nul: Value = JsonNull.INSTANCE
 
     fun object_(vararg fields: Pair<String, Value>): Value {
         return fields.fold(JsonObject()) { obj, (name, value) -> obj.add(name, value); obj }
     }
 
-    fun array(values: Collection<Value>): Value {
-        return values.fold(JsonArray()) { arr, value -> arr.add(value); arr }
+    val array: Encoder<Collection<Value>> = {
+        it.fold(JsonArray()) { arr, value -> arr.add(value); arr }
+    }
+
+    fun <T> nullable(encoder: Encoder<T>): Encoder<T?> {
+        return {
+            if (it != null) encoder(it)
+            else nul
+        }
     }
 }
 
