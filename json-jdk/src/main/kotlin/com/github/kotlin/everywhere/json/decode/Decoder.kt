@@ -46,6 +46,14 @@ object Decoders {
         }
     }
 
+    val unit: Decoder<Unit> = {
+        if (it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asJsonPrimitive.asString == "Unit") {
+            Ok(Unit)
+        } else {
+            Err("Expecting a Unit but instead got: $it")
+        }
+    }
+
     fun <T> nul(): Decoder<T?> {
         return {
             if (it.isJsonNull) {

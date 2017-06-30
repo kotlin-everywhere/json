@@ -8,6 +8,7 @@ import com.github.kotlin.everywhere.json.decode.Decoders.long
 import com.github.kotlin.everywhere.json.decode.Decoders.nul
 import com.github.kotlin.everywhere.json.decode.Decoders.nullable
 import com.github.kotlin.everywhere.json.decode.Decoders.string
+import com.github.kotlin.everywhere.json.decode.Decoders.unit
 import com.github.kotlin.everywhere.json.decode.Err
 import com.github.kotlin.everywhere.json.decode.Ok
 import com.github.kotlin.everywhere.json.decode.decodeString
@@ -75,6 +76,16 @@ class DecoderTest {
         assertEquals(Err.of("Expecting a Null but instead got: 3.14"), decodeString(nullInt, "3.14"))
         assertEquals(Err.of("Expecting a Null but instead got: \"hello\""), decodeString(nullInt, "\"hello\""))
         assertEquals(Err.of("Expecting a Null but instead got: {\"hello\":42}"), decodeString(nullInt, "{ \"hello\": 42 }"))
+    }
+
+    @Test
+    fun testUnit() {
+        assertEquals(Ok.of(Unit), decodeString(unit, "\"Unit\""))
+        assertEquals(Err.of("Expecting a Unit but instead got: true"), decodeString(unit, "true"))
+        assertEquals(Err.of("Expecting a Unit but instead got: 42"), decodeString(unit, "42"))
+        assertEquals(Err.of("Expecting a Unit but instead got: 3.14"), decodeString(unit, "3.14"))
+        assertEquals(Err.of("Expecting a Unit but instead got: \"hello\""), decodeString(unit, "\"hello\""))
+        assertEquals(Err.of("Expecting a Unit but instead got: {\"hello\":42}"), decodeString(unit, "{ \"hello\": 42 }"))
     }
 
     @Test
